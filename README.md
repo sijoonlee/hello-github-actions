@@ -55,3 +55,79 @@ Our action will use a Docker container so it will require a `Dockerfile`. Let's 
 <hr>
 <h3 align="center">I'll respond in your new pull request with next steps.</h3>
 
+
+Nice work, you committed a `Dockerfile`. You'll notice at the end of the Dockerfile, we refer to an entrypoint script.
+
+```Dockerfile
+ENTRYPOINT ["/entrypoint.sh"]
+```
+
+The `entrypoint.sh` script will be run in Docker, and it will define what the action is really going to be doing.
+
+## Step 2: Add an entrypoint script
+
+An entrypoint script must exist in our repository so that Docker has something to execute.
+
+### :keyboard: Activity: Add an entrypoint script and commit it to your branch
+
+1. As a part of this branch and pull request, create a file in the `/action-a/` directory titled `entrypoint.sh`. You can do so with [this quicklink](https://github.com/sijoonlee/hello-github-actions/new/first-action?filename=action-a/entrypoint.sh)
+1. Add the following content to the `entrypoint.sh` file:
+
+   ```shell
+   #!/bin/sh -l
+
+   sh -c "echo Hello world my name is $INPUT_MY_NAME"
+   ```
+
+1. Stage and commit the changes
+1. Push the changes to GitHub
+
+<hr>
+<h3 align="center">I'll respond when I detect a new commit on this branch.</h3>
+
+
+Nice work adding the `entrypoint.sh` script.
+
+In `entrypoint.sh`, all we're doing is outputting a "Hello world" message using an environment variable called `MY_NAME`.
+
+Next, we'll define a **workflow** that uses the GitHub Action.
+Next, we'll define the `action.yml` file which contains the metadata for our action.
+
+### action.yml
+
+All actions require a metadata file that uses YAML syntax. The data in the metadata file defines the `inputs`, `outputs` and main `entrypoint` for your action.
+
+## Step 3: Add an action metadata file
+
+We will use an `input` parameter to read in the value of `MY_NAME`.
+
+### :keyboard: Activity: Create action.yml
+
+1. As a part of this branch and pull request, create a file titled `action-a/action.yml`. You can do so using [this quicklink](https://github.com/sijoonlee/hello-github-actions/new/first-action?filename=action-a/action.yml) or manually.
+1. Add the following content to the `action.yml` file:
+
+   ```yaml
+   name: "Hello Actions"
+   description: "Greet someone"
+   author: "octocat@github.com"
+
+   inputs:
+     MY_NAME:
+       description: "Who to greet"
+       required: true
+       default: "World"
+
+   runs:
+     using: "docker"
+     image: "Dockerfile"
+
+   branding:
+     icon: "mic"
+     color: "purple"
+   ```
+
+1. Stage and commit the changes
+1. Push the changes to GitHub
+
+<hr>
+<h3 align="center">I'll respond when I detect a new commit on this branch.</h3>
